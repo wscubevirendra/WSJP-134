@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { create, deleteById, read, readById, statusUpdate, updateById } from "../controllers/category.controller";
+import { create, deleteById, read, readById, statusUpdate, updateById } from "../controllers/category.controller.js";
 const router = Router();
 
 router.post("/create", create);

@@ -14,7 +14,8 @@ const categorySchema = new mongoose.Schema({
         trim: true,
     },
     image: {
-        type: String
+        type: String,
+        required: true
     },
     status: {
         type: Boolean,
@@ -26,11 +27,11 @@ const categorySchema = new mongoose.Schema({
 
 
 {
-    name:"AbCSS "
+    name: "AbCSS "
 }
 
 // Pre-save middleware
-categorySchema.pre("save", function () {
+categorySchema.pre("validate", function () {
     if (this.isModified("name")) {
         this.slug = this.name
             .toLowerCase()
