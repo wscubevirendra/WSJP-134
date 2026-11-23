@@ -26,7 +26,7 @@ export const create = async (req, res) => {
         await categoryModel.create({ name, image: file.path });
         res.status(201).json({
             message: "category create successfully",
-            status: true
+            success: true
         })
 
 
@@ -40,11 +40,10 @@ export const create = async (req, res) => {
 }
 
 
-
-
 export const read = async (req, res) => {
     try {
         const categories = await categoryModel.find();
+
         res.status(200).json({
             message: "Category Data Fetched",
             success: true,
@@ -59,10 +58,17 @@ export const read = async (req, res) => {
     }
 }
 
-export const readById = async(req,res) => {
+export const readById = async (req, res) => {
     try {
-        const categoryId = req.params.id
-        const category = await categoryModel.findById({ _id: categoryId });
+
+        const id = req.params.id
+        const category = await categoryModel.findById({ _id: id });
+        if (!category) {
+            return res.status(404).json({
+                message: "No Data Found",
+                success: false
+            })
+        }
         res.status(200).json({
             message: "Category Data Fetched",
             success: true,
@@ -71,33 +77,96 @@ export const readById = async(req,res) => {
 
 
     } catch (error) {
- res.status(500).json({
+        res.status(500).json({
             message: error.message || "Internal Server Error",
             success: false
         })
     }
 }
 
-export const deleteById = () => {
+export const deleteById = async (req, res) => {
     try {
+        const id = req.params.id;
+        const category = await categoryModel.findById({ _id: id });
+        if (!category) {
+            return res.status(404).json({
+                message: "No Data Found",
+                success: false
+            })
+        }
+        await categoryModel.deleteOne({ _id: id })
+        res.status(200).json({
+            message: "Category Delete Successfully",
+            success: true,
+        })
+
 
     } catch (error) {
-
+        res.status(500).json({
+            message: error.message || "Internal Server Error",
+            success: false
+        })
     }
 }
 
-export const statusUpdate = () => {
+export const statusUpdate = async (req, res) => {
     try {
+        const id = req.params.id;
+        const category = await categoryModel.findById({ _id: id });
+        if (!category) {
+            return res.status(404).json({
+                message: "No Data Found",
+                success: false
+            })
+        }
 
+        await categoryModel.findByIdAndUpdate(id, { $set: { status: !category.status } });
+        res.status(200).json({
+            message: "Category Status Update Successfully",
+            success: true,
+        })
     } catch (error) {
-
+        res.status(500).json({
+            message: error.message || "Internal Server Error",
+            success: false
+        })
     }
 }
 
-export const updateById = () => {
+export const updateById = async (req, res) => {
     try {
+        const file = await uploadImage(req, res, "categories");
+        const { name } = req.body
+        const id = req.params.id;
+        const category = await categoryModel.findById({ _id: id });
+        if (!category) {
+            return res.status(404).json({
+                message: "No Data Found",
+                success: false
+            })
+        }
+
+
+        // {
+        //     name:"new name"
+        // }
+        const body = {};
+        if (name) body.name = name;
+        if (file) body.image = file.path
+
+
+        await categoryModel.findByIdAndUpdate(id, body)
+         res.status(200).json({
+            message: "Category  Update Successfully",
+            success: true,
+        })
+
+
 
     } catch (error) {
-
+        res.status(500).json({
+            message: error.message || "Internal Server Error",
+            success: false
+        })
     }
 }

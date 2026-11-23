@@ -23,13 +23,7 @@ const Header = ({ setIsCollapsed }) => {
         {/* Left Section */}
         <div className="flex items-center gap-5">
 
-          {/* Sidebar Toggle */}
-          <button
-            onClick={() => setIsCollapsed((prev) => !prev)}
-            className="text-gray-600 hover:text-teal-700 text-xl"
-          >
-            <FiMenu size={24} />
-          </button>
+          
 
           {/* Search Bar */}
           <div className="relative w-80">
@@ -84,7 +78,7 @@ const Header = ({ setIsCollapsed }) => {
 
               <div className="text-left hidden sm:block">
                 <h3 className="text-sm font-semibold text-gray-800">
-                  Virendra
+                  Kartik
                 </h3>
 
                 <p className="text-xs text-gray-500">

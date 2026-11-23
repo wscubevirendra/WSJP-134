@@ -4,6 +4,9 @@ import Layout from './pages/Layout'
 import DashBoard from './pages/DashBoard'
 import Analytics from './pages/Analytics'
 import Products from './pages/Products'
+import Categories from './pages/Categories'
+import CategoryForm from './pages/CategoryForm'
+import { Toaster } from 'sonner'
 
 
 export default function App() {
@@ -21,14 +24,30 @@ export default function App() {
           element: <Analytics />
         },
         {
-          path:"/admin/products",
-          element:<Products/>
+          path: "/admin/products",
+          element: <Products />
+        },
+        {
+          path: "/admin/categories",
+          element: <Categories />
+        },
+        {
+          path: "/admin/category/add",
+          element: <CategoryForm />
+        },
+        {
+          path:"/admin/category/edit/:id",
+          element:<CategoryForm/>
         }
-        
+
       ]
     }
   ])
   return (
-    <RouterProvider router={routers} />
+    <>
+      <Toaster position="top-right" richColors />
+      <RouterProvider router={routers} />
+    </>
+
   )
 }

@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import mongoose from "mongoose"
 import express from "express"
+import cors from "cors"
 import connectDB from "./config/db.config.js";
 import categoryRouter from "./routers/category.router.js";
 
@@ -13,6 +14,7 @@ const PORT = process.env.PORT;
 
 // Middleware
 app.use(express.json());
+app.use(cors({ origin: ["http://localhost:5173", "http://localhost:3000"] }));
 
 // Default route
 app.get("/", (req, res) => {
@@ -21,7 +23,7 @@ app.get("/", (req, res) => {
 
 //API
 
-app.use("/api/category",categoryRouter)
+app.use("/api/category", categoryRouter)
 
 
 
