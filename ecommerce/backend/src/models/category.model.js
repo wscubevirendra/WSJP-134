@@ -26,9 +26,7 @@ const categorySchema = new mongoose.Schema({
 })
 
 
-{
-    name: "AbCSS "
-}
+
 
 // Pre-save middleware
 categorySchema.pre("validate", function () {

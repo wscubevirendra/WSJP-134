@@ -9,10 +9,9 @@ import { toast } from "sonner";
 import Swal from 'sweetalert2'
 
 
-function Action({ onView, onEdit, path }) {
+function Action({ onView = null, onEdit, path }) {
   async function deleteHanlder() {
     try {
-
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -21,7 +20,7 @@ function Action({ onView, onEdit, path }) {
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, delete it!"
-      }).then(async(result) => {
+      }).then(async (result) => {
         if (result.isConfirmed) {
           const response = await api.delete(path);
           if (response.data.success) {
@@ -49,13 +48,16 @@ function Action({ onView, onEdit, path }) {
     <div className="absolute right-0 top-10 z-20 w-40 rounded-xl border border-gray-100 bg-white p-2 shadow-lg">
 
       {/* View */}
-      <button
-        onClick={onView}
-        className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-gray-700 transition hover:bg-gray-100"
-      >
-        <FiEye size={17} />
-        View
-      </button>
+      {
+        onView && <button
+          onClick={onView}
+          className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-gray-700 transition hover:bg-gray-100"
+        >
+          <FiEye size={17} />
+          View
+        </button>
+      }
+
 
       {/* Edit */}
       <button

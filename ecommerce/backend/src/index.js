@@ -5,6 +5,7 @@ import express from "express"
 import cors from "cors"
 import connectDB from "./config/db.config.js";
 import categoryRouter from "./routers/category.router.js";
+import productRouter from "./routers/product.router.js";
 
 // Create Express application
 const app = express();
@@ -24,6 +25,7 @@ app.get("/", (req, res) => {
 //API
 
 app.use("/api/category", categoryRouter)
+app.use("/api/product", productRouter)
 
 
 

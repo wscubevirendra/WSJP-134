@@ -13,7 +13,7 @@ function useCategory() {
             const response = await api.get("category");
             if (response.data.success) {
                 setCategories(response.data.categories)
-                console.log(response.data.categories)
+               
             }
 
         } catch (error) {

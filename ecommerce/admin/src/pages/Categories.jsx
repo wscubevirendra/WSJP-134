@@ -148,12 +148,9 @@ function Categories() {
 
                                             {activeMenu === category._id && (
                                                 <Action
-                                                    onView={() => {
-
-                                                        setActiveMenu(null);
-                                                    }}
+                                                   
                                                     onEdit={() => {
-                                                        navigate(`/admin/category/edit/:${category.id}`)
+                                                        navigate(`/admin/category/edit/${category.id}`)
                                                         setActiveMenu(null);
                                                     }}
                                                     path={`category/delete/${category._id}`}

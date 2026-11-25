@@ -7,6 +7,7 @@ import Products from './pages/Products'
 import Categories from './pages/Categories'
 import CategoryForm from './pages/CategoryForm'
 import { Toaster } from 'sonner'
+import ProductForm from './pages/ProductForm'
 
 
 export default function App() {
@@ -38,7 +39,16 @@ export default function App() {
         {
           path:"/admin/category/edit/:id",
           element:<CategoryForm/>
+        },
+        {
+          path:"/admin/product/add",
+          element:<ProductForm/>
+        },
+        {
+          path:"/admin/product/edit/:id",
+          element:<ProductForm/>
         }
+        
 
       ]
     }
