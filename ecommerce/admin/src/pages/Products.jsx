@@ -9,6 +9,7 @@ import ErrorPage from "../pages/ErrorPage";
 import useProduct from "../hooks/useProduct";
 import StatusButton from "../components/StatusButton";
 
+
 function Products() {
   const [activeMenu, setActiveMenu] = useState("");
   const { loading, error, data } = useProduct();
@@ -119,7 +120,7 @@ function Products() {
                       <div className="flex items-center gap-4">
                         <h3 className="text-sm font-semibold text-gray-800">
                           ₹ {product.price}
-                           {product.discountPrice ? `₹ ${product.discountPrice}` : "N/A"}
+                          {product.discountPrice ? `₹ ${product.discountPrice}` : "N/A"}
 
                         </h3>
                       </div>
@@ -163,14 +164,21 @@ function Products() {
                       {activeMenu === product._id && (
                         <Action
                           onView={() => {
-
+                            navigate(`/admin/product/view/${product._id}`)
                             setActiveMenu(null);
                           }}
+
                           onEdit={() => {
                             navigate(`/admin/product/edit/${product._id}`)
                             setActiveMenu(null);
                           }}
+
                           path={`product/delete/${product._id}`}
+
+                          uploadImages={() => {
+                            navigate(`/admin/product/upload-images/${product._id}`)
+                            setActiveMenu(null);
+                          }}
                         />
                       )}
 

@@ -234,6 +234,8 @@ export const deleteById = async (req, res) => {
 // UPDATE PRODUCT
 export const updateById = async (req, res) => {
     try {
+        const file = await uploadImage(req, res, "products");
+
         const { id } = req.params;
 
         const {
@@ -286,7 +288,6 @@ export const updateById = async (req, res) => {
         if (isSale !== undefined) body.isSale = isSale;
 
         // Upload new thumbnail if provided
-        const file = await uploadImage(req, res, "products");
 
         if (file) {
             body.thumbnail = file.path;
@@ -314,3 +315,37 @@ export const updateById = async (req, res) => {
         });
     }
 };
+
+
+export const uploadImages = async (req, res) => {
+    try {
+        //true--multiple images   false--single image
+        const files = await uploadImage(req, res, "products", true);
+        console.log(files)
+        const { id } = req.params;
+        const product = await ProductModel.findById(id);
+        const images = files.map(file => file.path);
+        if (!product) {
+            return res.status(404).json({
+                message: "Product not found",
+                success: false
+            });
+        }
+
+        product.images.push(...images);
+        await product.save();
+        return res.status(200).json({
+            message: "Product images upload ",
+            success: true
+        });
+
+
+
+
+    } catch (error) {
+        return res.status(500).json({
+            message: error.message || "Internal Server Error",
+            success: false
+        });
+    }
+}

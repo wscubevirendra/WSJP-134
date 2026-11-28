@@ -2,7 +2,7 @@ import multer from "multer";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 import cloudinary from "../config/cloudinary.js";
 
-const uploadImage = (req, res, folder) => {
+const uploadImage = (req, res, folder, multiple = false) => {
 
     const storage = new CloudinaryStorage({
         cloudinary,
@@ -20,16 +20,16 @@ const uploadImage = (req, res, folder) => {
     });
 
     return new Promise((resolve, reject) => {
+        // Single or multiple image upload
+        const uploader = multiple
+            ? upload.array("images", 4)
+            : upload.single("image");
 
-        upload.single("image")(req, res, (error) => {
-            console.log(req)
-            console.log(res)
-
+        uploader(req, res, (error) => {
             if (error) {
                 return reject(error);
             }
-
-            resolve(req.file);
+            resolve(multiple ? req.files : req.file);
         });
     });
 };

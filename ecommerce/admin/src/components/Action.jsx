@@ -7,9 +7,11 @@ import {
 import api from "../api/axiosInstance";
 import { toast } from "sonner";
 import Swal from 'sweetalert2'
+import { RiUpload2Line } from "react-icons/ri";
 
 
-function Action({ onView = null, onEdit, path }) {
+
+function Action({ onView = null, onEdit, path, uploadImages = null }) {
   async function deleteHanlder() {
     try {
       Swal.fire({
@@ -55,6 +57,16 @@ function Action({ onView = null, onEdit, path }) {
         >
           <FiEye size={17} />
           View
+        </button>
+      }
+
+      {
+        uploadImages && <button
+          onClick={uploadImages}
+          className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-gray-700 transition hover:bg-gray-100"
+        >
+          <RiUpload2Line size={17} />
+          Upload Image
         </button>
       }
 

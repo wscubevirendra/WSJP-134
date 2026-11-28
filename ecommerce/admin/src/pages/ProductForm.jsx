@@ -1,3 +1,4 @@
+import { Editor } from 'primereact/editor';
 
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -12,9 +13,9 @@ import {
     FiX,
 } from "react-icons/fi";
 import { toast } from "sonner";
-
 import api from "../api/axiosInstance";
 import useCategory from "../hooks/useCategory";
+
 
 const initialForm = {
     name: "",
@@ -233,14 +234,12 @@ const ProductForm = () => {
                         },
                     })
                 }
-                className={`relative h-6 w-11 shrink-0 rounded-full transition-colors duration-200 ${
-                    checked ? "bg-indigo-600" : "bg-gray-300"
-                }`}
+                className={`relative h-6 w-11 shrink-0 rounded-full transition-colors duration-200 ${checked ? "bg-indigo-600" : "bg-gray-300"
+                    }`}
             >
                 <span
-                    className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow-sm transition-transform duration-200 ${
-                        checked ? "translate-x-5" : "translate-x-0.5"
-                    }`}
+                    className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow-sm transition-transform duration-200 ${checked ? "translate-x-5" : "translate-x-0.5"
+                        }`}
                 />
             </button>
         );
@@ -386,15 +385,19 @@ const ProductForm = () => {
                                         <label className={labelClass}>
                                             Description
                                         </label>
+                                        <Editor  value={formData.description} onTextChange={(e) =>{
+                                            setFormData({...formData,description:(e.htmlValue)})
+                                        }} 
+                                        style={{ height: '320px' }} />
 
-                                        <textarea
+                                        {/* <textarea
                                             name="description"
                                             value={formData.description}
                                             onChange={handleChange}
                                             rows={5}
                                             placeholder="Write a detailed product description..."
                                             className={`${inputClass} resize-none`}
-                                        />
+                                        /> */}
                                     </div>
 
                                 </div>
@@ -491,11 +494,10 @@ const ProductForm = () => {
 
                                         <div className="flex items-center gap-3">
 
-                                            <div className={`flex h-11 w-11 items-center justify-center rounded-xl ${
-                                                formData.isInStock
-                                                    ? "bg-emerald-100 text-emerald-600"
-                                                    : "bg-red-100 text-red-600"
-                                            }`}>
+                                            <div className={`flex h-11 w-11 items-center justify-center rounded-xl ${formData.isInStock
+                                                ? "bg-emerald-100 text-emerald-600"
+                                                : "bg-red-100 text-red-600"
+                                                }`}>
                                                 <FiPackage size={21} />
                                             </div>
 
@@ -527,16 +529,14 @@ const ProductForm = () => {
                                     </div>
 
                                     <div className="mt-4 border-t border-gray-200 pt-3">
-                                        <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-semibold ${
-                                            formData.isInStock
-                                                ? "bg-emerald-100 text-emerald-700"
-                                                : "bg-red-100 text-red-700"
-                                        }`}>
-                                            <span className={`h-2 w-2 rounded-full ${
-                                                formData.isInStock
-                                                    ? "bg-emerald-500"
-                                                    : "bg-red-500"
-                                            }`} />
+                                        <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-semibold ${formData.isInStock
+                                            ? "bg-emerald-100 text-emerald-700"
+                                            : "bg-red-100 text-red-700"
+                                            }`}>
+                                            <span className={`h-2 w-2 rounded-full ${formData.isInStock
+                                                ? "bg-emerald-500"
+                                                : "bg-red-500"
+                                                }`} />
 
                                             {formData.isInStock
                                                 ? "In Stock"
@@ -617,11 +617,10 @@ const ProductForm = () => {
                                                     onClick={() =>
                                                         handleSizeChange(size)
                                                     }
-                                                    className={`flex h-11 min-w-12 items-center justify-center gap-1 rounded-lg border px-4 text-sm font-semibold transition ${
-                                                        selected
-                                                            ? "border-indigo-600 bg-indigo-600 text-white shadow-sm"
-                                                            : "border-gray-200 bg-white text-gray-600 hover:border-indigo-300 hover:bg-indigo-50"
-                                                    }`}
+                                                    className={`flex h-11 min-w-12 items-center justify-center gap-1 rounded-lg border px-4 text-sm font-semibold transition ${selected
+                                                        ? "border-indigo-600 bg-indigo-600 text-white shadow-sm"
+                                                        : "border-gray-200 bg-white text-gray-600 hover:border-indigo-300 hover:bg-indigo-50"
+                                                        }`}
                                                 >
                                                     {selected && (
                                                         <FiCheck size={13} />
@@ -661,11 +660,10 @@ const ProductForm = () => {
 
                                 <div className="relative">
 
-                                    <label className={`flex min-h-[230px] cursor-pointer flex-col items-center justify-center overflow-hidden rounded-xl border-2 border-dashed transition ${
-                                        preview
-                                            ? "border-gray-200 bg-gray-50"
-                                            : "border-indigo-200 bg-indigo-50/40 hover:border-indigo-400 hover:bg-indigo-50"
-                                    }`}>
+                                    <label className={`flex min-h-[230px] cursor-pointer flex-col items-center justify-center overflow-hidden rounded-xl border-2 border-dashed transition ${preview
+                                        ? "border-gray-200 bg-gray-50"
+                                        : "border-indigo-200 bg-indigo-50/40 hover:border-indigo-400 hover:bg-indigo-50"
+                                        }`}>
 
                                         {preview ? (
                                             <img
